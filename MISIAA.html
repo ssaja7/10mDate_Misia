@@ -109,7 +109,7 @@
 
     <!-- Formularz wyboru daty i jedzenia -->
     <div class="form-container" id="form-step">
-        <h1>Plan Your Date</h1>
+        <h1>Zaplanujmy naszą Randkę</h1>
         <form id="dateForm">
             <label for="date">Wybierz Datę:</label>
             <input type="date" id="date" name="date" required>
@@ -146,13 +146,13 @@
         const yesButton = document.getElementById("yes");
         const noButton = document.getElementById("no");
 
-        const dateInput = document.getElementById("date");
+        const Input = document.getElementById("");
         const timeInput = document.getElementById("time");
         const mealInput = document.getElementById("meal");
         const decideCheckbox = document.getElementById("let-me-decide");
         const submitFormButton = document.getElementById("submitForm");
 
-        const summaryDate = document.getElementById("summary-date");
+        const summary = document.getElementById("summary-");
         const summaryTime = document.getElementById("summary-time");
         const summaryMeal = document.getElementById("summary-meal");
 
@@ -171,7 +171,7 @@
 
         // Obsługa wysłania formularza
         submitFormButton.addEventListener("click", () => {
-            const date = dateInput.value;
+            const  = Input.value;
             const time = timeInput.value;
             let meal = mealInput.value;
 
@@ -180,7 +180,7 @@
             }
 
             // Aktualizacja podsumowania
-            summaryDate.textContent = `Date: ${date}`;
+            summary.textContent = `: ${}`;
             summaryTime.textContent = `Time: ${time}`;
             summaryMeal.textContent = `Meal: ${meal}`;
 
