@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 Miesięcznica</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@1,300&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Bellota Text', sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100vh;
+            background-image: url("https://img.freepik.com/darmowe-wektory/recznie-malowane-akwarela-pastelowe-niebo-w-tle_23-2148902618.jpg?t=st=1733332257~exp=1733335857~hmac=97fef9df743306d0d4fecefb3c6150442d01fed9d3763f4f54964246a0922eb1&w=1380");
+            background-size: cover;
+        }
+
+        .container, .form-container, .summary-container {
+            display: none;
+            width: 400px;
+            height: 500px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .container.active, .form-container.active, .summary-container.active {
+            display: block;
+        }
+
+        .container h1, .form-container h1, .summary-container h1 {
+            font-size: 50px;
+            font-weight: 700;
+            text-shadow: 0px 3px 6px rgb(147, 77, 77);
+            margin-bottom: 20px;
+        }
+
+        .gifimg {
+            width: 384px;
+            height: 254px;
+            background-image: url("https://media1.tenor.com/m/TFEZJql6ILIAAAAd/happy-birthday.gif");
+            background-size: cover;
+            border-radius: 10px;
+            margin: 20px auto;
+        }
+
+        .answer-box {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .answer {
+            width: 120px;
+            height: 50px;
+            font-size: 20px;
+            border-radius: 10px;
+            border: 1px solid black;
+            background: rgba(255, 255, 255, 0.5); /* Tło z przezroczystością */
+            filter: blur(0.1px); /* Efekt rozmycia */
+            cursor: pointer;
+            transition: filter 0.3s ease-in-out; /* Płynne przejście */
+        }
+
+        .form-container input, .form-container button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+
+        .form-container button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #218838;
+        }
+
+        .summary-container p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pytanie o randkę -->
+    <div class="container active" id="question-step">
+        <h1>Wyjdziesz na randkę ze mną?</h1>
+        <div class="gifimg"></div>
+        <div class="answer-box">
+            <button class="answer" id="yes">TAAK!!!</button>
+            <button class="answer" id="no">Nie</button>
+        </div>
+    </div>
+
+    <!-- Formularz wyboru daty i jedzenia -->
+    <div class="form-container" id="form-step">
+        <h1>Zaplanujmy Randkę</h1>
+        <form id="dateForm">
+            <label for="date">Wybierz Datę:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">O której ?:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="meal">Co byśmy chcieli zjeść?</label>
+            <input type="text" id="meal" name="meal" placeholder="Napisz co byś zjadła">
+            
+            <label>
+                <input type="checkbox" id="let-me-decide">
+                Ty zadecyduuj!!!
+            </label>
+
+            <button type="button" id="submitForm">Zatwierdź</button>
+        </form>
+    </div>
+
+    <!-- Podsumowanie wyboru -->
+    <div class="summary-container" id="summary-step">
+        <h1>Nasza Randka</h1>
+        <p id="summary-date"></p>
+        <p id="summary-time"></p>
+        <p id="summary-meal"></p>
+    </div>
+
+    <script>
+        // Elementy interfejsu
+        const questionStep = document.getElementById("question-step");
+        const formStep = document.getElementById("form-step");
+        const summaryStep = document.getElementById("summary-step");
+
+        const yesButton = document.getElementById("yes");
+        const noButton = document.getElementById("no");
+
+        const dateInput = document.getElementById("date");
+        const timeInput = document.getElementById("time");
+        const mealInput = document.getElementById("meal");
+        const decideCheckbox = document.getElementById("let-me-decide");
+        const submitFormButton = document.getElementById("submitForm");
+
+        const summaryDate = document.getElementById("summary-date");
+        const summaryTime = document.getElementById("summary-time");
+        const summaryMeal = document.getElementById("summary-meal");
+
+        // Obsługa kliknięcia "Yes!!!"
+        yesButton.addEventListener("click", () => {
+            questionStep.classList.remove("active");
+            formStep.classList.add("active");
+        });
+
+        // Obsługa kliknięcia "No"
+        noButton.addEventListener("click", () => {
+            noButton.style.position = "absolute";
+            noButton.style.left = `${Math.random() * 80}%`;
+            noButton.style.top = `${Math.random() * 80}%`;
+        });
+
+        // Obsługa wysłania formularza
+        submitFormButton.addEventListener("click", () => {
+            const date = dateInput.value;
+            const time = timeInput.value;
+            let meal = mealInput.value;
+
+            if (decideCheckbox.checked) {
+                meal = "I will decide for you!";
+            }
+
+            // Aktualizacja podsumowania z polskimi etykietami
+            summaryDate.textContent = `Data: ${date}`;
+            summaryTime.textContent = `Czas: ${time}`;
+            summaryMeal.textContent = `Jedzonko: ${meal}`;
+
+            // Przejście do podsumowania
+            formStep.classList.remove("active");
+            summaryStep.classList.add("active");
+        });
+    </script>
+</body>
+</html>
