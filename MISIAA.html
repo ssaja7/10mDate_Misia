@@ -7,21 +7,18 @@
     <link rel="stylesheet" href="style.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bellota+Text:ital,wght@1,300&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Bellota Text', sans-serif;
         }
-
         body, html {
             width: 100%;
             height: 100vh;
             background-image: url("https://img.freepik.com/darmowe-wektory/recznie-malowane-akwarela-pastelowe-niebo-w-tle_23-2148902618.jpg?t=st=1733332257~exp=1733335857~hmac=97fef9df743306d0d4fecefb3c6150442d01fed9d3763f4f54964246a0922eb1&w=1380");
             background-size: cover;
         }
-
         .container, .form-container, .summary-container {
             display: none;
             width: 400px;
@@ -32,18 +29,15 @@
             transform: translate(-50%, -50%);
             text-align: center;
         }
-
         .container.active, .form-container.active, .summary-container.active {
             display: block;
         }
-
         .container h1, .form-container h1, .summary-container h1 {
             font-size: 50px;
             font-weight: 700;
             text-shadow: 0px 3px 6px rgb(147, 77, 77);
             margin-bottom: 20px;
         }
-
         .gifimg {
             width: 384px;
             height: 254px;
@@ -52,13 +46,11 @@
             border-radius: 10px;
             margin: 20px auto;
         }
-
         .answer-box {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
         }
-
         .answer {
             width: 120px;
             height: 50px;
@@ -69,7 +61,6 @@
             backdrop-filter: blur(5px);
             cursor: pointer;
         }
-
         .form-container input, .form-container button {
             display: block;
             width: 80%;
@@ -79,17 +70,14 @@
             border-radius: 5px;
             border: 1px solid black;
         }
-
         .form-container button {
             background-color: #28a745;
             color: white;
             cursor: pointer;
         }
-
         .form-container button:hover {
             background-color: #218838;
         }
-
         .summary-container p {
             font-size: 18px;
             margin: 10px 0;
@@ -106,17 +94,14 @@
             <button class="answer" id="no">Nie</button>
         </div>
     </div>
-
     <!-- Formularz wyboru daty i jedzenia -->
     <div class="form-container" id="form-step">
-        <h1>Zaplanujmy naszą Randkę</h1>
+        <h1>Plan Your Date</h1>
         <form id="dateForm">
             <label for="date">Wybierz Datę:</label>
             <input type="date" id="date" name="date" required>
-
             <label for="time">O której ?:</label>
             <input type="time" id="time" name="time" required>
-
             <label for="meal">Co byśmy chcieli zjeść?</label>
             <input type="text" id="meal" name="meal" placeholder="Napisz co byś zjadła">
             
@@ -124,11 +109,9 @@
                 <input type="checkbox" id="let-me-decide">
                 Ty zadecyduuj!!!
             </label>
-
             <button type="button" id="submitForm">Zatwierdź</button>
         </form>
     </div>
-
     <!-- Podsumowanie wyboru -->
     <div class="summary-container" id="summary-step">
         <h1>Nasza Randka</h1>
@@ -136,54 +119,44 @@
         <p id="summary-time"></p>
         <p id="summary-meal"></p>
     </div>
-
     <script>
         // Elementy interfejsu
         const questionStep = document.getElementById("question-step");
         const formStep = document.getElementById("form-step");
         const summaryStep = document.getElementById("summary-step");
-
         const yesButton = document.getElementById("yes");
         const noButton = document.getElementById("no");
-
-        const Input = document.getElementById("");
+        const dateInput = document.getElementById("date");
         const timeInput = document.getElementById("time");
         const mealInput = document.getElementById("meal");
         const decideCheckbox = document.getElementById("let-me-decide");
         const submitFormButton = document.getElementById("submitForm");
-
-        const summary = document.getElementById("summary-");
+        const summaryDate = document.getElementById("summary-date");
         const summaryTime = document.getElementById("summary-time");
         const summaryMeal = document.getElementById("summary-meal");
-
         // Obsługa kliknięcia "Yes!!!"
         yesButton.addEventListener("click", () => {
             questionStep.classList.remove("active");
             formStep.classList.add("active");
         });
-
         // Obsługa kliknięcia "No"
         noButton.addEventListener("click", () => {
             noButton.style.position = "absolute";
             noButton.style.left = `${Math.random() * 80}%`;
             noButton.style.top = `${Math.random() * 80}%`;
         });
-
         // Obsługa wysłania formularza
         submitFormButton.addEventListener("click", () => {
-            const  = Input.value;
+            const date = dateInput.value;
             const time = timeInput.value;
             let meal = mealInput.value;
-
             if (decideCheckbox.checked) {
                 meal = "I will decide for you!";
             }
-
             // Aktualizacja podsumowania
-            summary.textContent = `: ${}`;
+            summaryDate.textContent = `Date: ${date}`;
             summaryTime.textContent = `Time: ${time}`;
             summaryMeal.textContent = `Meal: ${meal}`;
-
             // Przejście do podsumowania
             formStep.classList.remove("active");
             summaryStep.classList.add("active");
